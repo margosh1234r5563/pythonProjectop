@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея с QR-кодом</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .gallery {
+            display: flex;
+            overflow: hidden;
+            width: 80%;
+            max-width: 800px; /* Максимальная ширина галереи */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .gallery-images {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gallery">
+    <button class="button prev" onclick="moveSlide(-1)">&#10094;</button>
+    <div class="gallery-images">
+        <img src="images/DSCF4902.jpg" alt="Фото 1">
+        <img src="images/DSCF4819.jpg" alt="Фото 2">
+        <img src="images/DJI_0236.jpg" alt="Фото 3">
+        <img src="images/DJI_0236.jpg" alt="Фото 4">
+        <img src="images/DJI_0235.jpg" alt="Фото 5">
+    </div>
+    <button class="button next" onclick="moveSlide(1)">&#10095;</button>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const images = [
+        "images/DSCF4902.jpg",
+        "images/DSCF4819.jpg",
+        "images/DJI_0236.jpg",
+        "images/DJI_0236.jpg",
+        "images/DJI_0235.jpg"
+    ];
+    
+    function moveSlide(direction) {
+        const totalSlides = images.length;
+        
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = totalSlides - 1; // Обратиться к последнему слайду
+        } else if (currentIndex >= totalSlides) {
+            currentIndex = 0; // Обратиться к первому слайду
+        }
+
+        document.querySelector('.gallery-images').innerHTML = `<img src="${images[currentIndex]}" alt="Фото ${currentIndex + 1}">`;
+    }
+
+    // Запускаем с первого изображения
+    moveSlide(0);
+</script>
+
+</body>
+</html>
+
